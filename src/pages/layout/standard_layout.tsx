@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, Icon, Layout } from 'antd';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import * as styles from "./standard_layout.less";
+import "./standard_layout.less";
 
 const { Header, Sider, Content } = Layout;
 
@@ -18,7 +18,7 @@ const StandardLayout = () => {
         <Router>
             <Layout>
                 <Sider trigger={null} collapsed={collapsed} collapsible>
-                    <div className={styles.logo} />
+                    <div className="logo" />
                     <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline" theme="dark">
                         <Menu.Item key="1">
                             <Link to="/">
@@ -51,9 +51,9 @@ const StandardLayout = () => {
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header className={styles.menu_layout_header}>
+                    <Header className="menu_layout_header" style={{ backgroundColor: '#fff', textAlign: 'left', paddingLeft: '0px' }}>
                         <Icon
-                            className={styles.trigger}
+                            className="trigger"
                             type={collapsed ? 'menu-unfold' : 'menu-fold'}
                             onClick={toggleCollapsed}
                         />
