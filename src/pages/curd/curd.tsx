@@ -6,3 +6,5 @@ const CurdPage = () => {
         <div>Model Curd Page Template</div>
     );
 }
+
+export default CurdPage;
