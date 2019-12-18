@@ -1,8 +1,9 @@
-import * as React from 'react';
+import React, { createRef, Ref } from 'react';
 import styled from 'styled-components';
 import { Form, Row, Col, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { useHistory } from 'react-router';
+import Axios from 'axios';
 
 
 const RootDiv = styled.div`
@@ -14,13 +15,19 @@ const RootDiv = styled.div`
 const RegistForm = (props: FormComponentProps) => {
 
     const history = useHistory();
+    const formRef = createRef<Ref<any>>();
 
     const onBack = () => {
         history.push('/login');
     }
+
+    const onSubmit = (e: any) => {
+        console.log('1111111');
+    }
+
     return (
         <RootDiv>
-            <Form>
+            <Form onSubmit={onSubmit}>
                 <Row>
                     <Col>
                         <Form.Item label="用户名">

@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Button, Row, Col, Form, Input, Card } from 'antd';
+import { Button, Row, Col, Form, Input, Card, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { FormComponentProps } from 'antd/lib/form';
 import styled from 'styled-components';
+import Axios from 'axios';
 
 const StyledImage = styled.img`
     width: 100%;
@@ -43,6 +44,17 @@ const LoginForm = (props: FormComponentProps) => {
 
         const username = props.form.getFieldValue('username');
         const password = props.form.getFieldValue('password');
+
+        console.log(username + '---' + password);
+        Axios.post('http://39.104.99.231:3001/mock/17/api/auth/login/', { username, password })
+            .then(val => {
+                if (val.status === 200) {
+                    console.log(val);
+                    message.success('登陆成功');
+                } else {
+                    message.error('登陆失败:' + val.data)
+                }
+            });
     }
 
     const onRegist = (e: any) => {
