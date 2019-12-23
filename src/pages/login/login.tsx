@@ -4,6 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { FormComponentProps } from 'antd/lib/form';
 import styled from 'styled-components';
 import Axios from 'axios';
+import { UserState, UserActionType } from '../../reducers/user_reducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
 
 const StyledImage = styled.img`
     width: 100%;
@@ -39,28 +42,22 @@ const heightStyle = {
 const LoginForm = (props: FormComponentProps) => {
     let history = useHistory();
 
+    const userState: UserState = useSelector<UserState, any>(state => state);
+    const dispatch: Dispatch = useDispatch();
+
+    React.useEffect(() => {
+        if (userState.username !== '' && userState.token !== '') {
+            history.push('/menu/dashboard');
+        }
+    }, []);
+
     const onSubmit = (e: any) => {
         e.preventDefault();
 
         const username = props.form.getFieldValue('username');
         const password = props.form.getFieldValue('password');
 
-        console.log(username + '---' + password);
-        Axios.post('http://39.104.99.231:3001/mock/17/api/auth/login/', { username, password })
-            .then(val => {
-                if (val.status === 200) {
-                    console.log(val);
-                    message.success('登陆成功');
-                } else {
-                    message.error('登陆失败:' + val.data)
-                }
-            });
-    }
-
-    const onRegist = (e: any) => {
-        e.preventDefault();
-
-        history.push('/regist');
+        dispatch<UserActionType>({ type: 'login', payload: { username, password } });
     }
 
     return (
